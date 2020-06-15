@@ -1,54 +1,22 @@
 // Add your functions here
-function mapToNegativize(src) {
+function map(src, cb) {
   let r = []
-  for (let i = 0; i < src.length; i++ ) {
-    r.push(-1 * src[i])
+
+  for (let i = 0; i < src.length; i++) {
+    let theElement = src[i]
+    r.push(cb(theElement))
   }
-  return r
+
+  return r;
 }
 
-function mapToNoChange(src) {
-  let r = []
-  for (let i = 0; i < src.length; i++ ) {
-    r.push(src[i])
-  }
-  return r
-}
+function reduce(src, cb, starting){
+  let r = (!!starting) ? starting : src[0]
+  let i = (!!starting) ? 0 : 1
 
-function mapToDouble(src) {
-  let r = []
-  for (let i = 0; i < src.length; i++ ) {
-    r.push(2 * src[i])
+  for (; i < src.length; i++) {
+    r = cb(src[i], r)
   }
-  return r
-}
 
-function mapToSquare(src) {
-  let r = []
-  for (let i = 0; i < src.length; i++ ) {
-    r.push(src[i] * src[i])
-  }
-  return r
-}
-
-function reduceToTotal(src, startingPoint=0) {
-  let total = startingPoint
-  for (let i = 0; i < src.length; i++ ) {
-    total = total + src[i]
-  }
-  return total
-}
-
-function reduceToAllTrue(src) {
-  for (let i = 0; i < src.length; i++ ) {
-    if (!src[i]) return false
-  }
-  return true
-}
-
-function reduceToAnyTrue(src) {
-  for (let i = 0; i < src.length; i++ ) {
-    if (src[i]) return true
-  }
-  return false
+  return r;
 }
